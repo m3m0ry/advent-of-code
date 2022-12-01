@@ -2,7 +2,7 @@ use itertools::*;
 
 pub fn run(input: String) {
     let mut data_grouped: Vec<u32> = Vec::new();
-    for (key, group) in &input.lines().group_by(|l| *l != "") {
+    for (key, group) in &input.lines().group_by(|l| !l.is_empty() ) {
         if key{
             data_grouped.push(group.flat_map(|c| c.parse::<u32>()).sum());
         }

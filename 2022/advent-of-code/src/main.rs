@@ -25,7 +25,6 @@ fn main() {
         1 => days::day01::run(input),
         _ => {
             eprintln!("Day not yet defined");
-            return;
         }
     }
 }
