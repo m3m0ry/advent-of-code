@@ -23,6 +23,7 @@ fn main() {
 
     match day {
         1 => days::day01::run(input),
+        2 => days::day02::run(input),
         _ => {
             eprintln!("Day not yet defined");
         }

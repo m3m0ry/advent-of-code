@@ -7,6 +7,6 @@ pub fn run(input: String) {
             data_grouped.push(group.flat_map(|c| c.parse::<u32>()).sum());
         }
     }
-    println!("Part1: {:?}", data_grouped.iter().max());
+    println!("Part1: {:?}", data_grouped.iter().max().unwrap_or(&0));
     println!("Part2: {:?}", data_grouped.iter().sorted().rev().take(3).sum::<u32>());
 }
