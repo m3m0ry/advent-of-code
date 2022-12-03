@@ -30,7 +30,7 @@ impl Outcome {
         if b == win(a) {
             return Outcome::Win;
         }
-        return Outcome::Lose;
+        Outcome::Lose
     }
     fn to_score(&self) -> u32 {
         match self {
@@ -70,7 +70,7 @@ pub fn run(input: String) {
     //Part1
     let mut part1: u32 = 0;
     let mut part2: u32 = 0;
-    for (elf, me) in input.lines().filter(|x| !x.is_empty()).map(|x| x.split_once(" ").unwrap()) {
+    for (elf, me) in input.lines().filter(|x| !x.is_empty()).map(|x| x.split_once(' ').unwrap()) {
         let me_move = Move::from_str(me);
         let elf_move = Move::from_str(elf);
         part1 += Outcome::from_game(elf_move, me_move).to_score();
