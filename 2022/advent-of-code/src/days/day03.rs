@@ -3,14 +3,9 @@ use std::collections::HashSet;
 pub fn run(input: String) {
     let mut result: u32 = 0;
     for sac in input.lines().filter(|x| !x.is_empty()) {
-        let left = sac[0..sac.len()/2].chars().collect::<Vec<_>>();
-        let right = sac[sac.len()/2..].chars().collect::<Vec<_>>();
-        let mut left_h = HashSet::new();
-        let mut right_h = HashSet::new();
-        right_h.extend(right);
-        left_h.extend(left);
-        let u: HashSet<_> = left_h.intersection(&right_h).collect();
-
+        let left: HashSet<char> = sac[0..sac.len()/2].chars().collect();
+        let right: HashSet<char> = sac[sac.len()/2..].chars().collect();
+        let u: HashSet<_> = left.intersection(&right).collect();
         debug_assert!(u.len() == 1);
         result += score_item(**u.iter().next().unwrap()) as u32;
     }
