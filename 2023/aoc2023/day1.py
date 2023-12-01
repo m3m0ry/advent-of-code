@@ -15,7 +15,16 @@ class Day1(AbstractDay):
         return result
 
     def part2(self):
-        numbers = {'one': '1',
+        numbers = {'1': '1',
+                   '2': '2',
+                   '3': '3',
+                   '4': '4',
+                   '5': '5',
+                   '6': '6',
+                   '7': '7',
+                   '8': '8',
+                   '9': '9',
+                   'one': '1',
                    'two': '2',
                    'three': '3',
                    'four': '4',
@@ -30,38 +39,24 @@ class Day1(AbstractDay):
         result = 0
 
         for x in self.puzzle:
-            first_numeral = IndexedNumber()
-            first_word = IndexedNumber()
+            first = IndexedNumber()
             for number in numbers:
-                try:
-                    index = x.index(str(numbers[number]))
-                    first_numeral = min(first_numeral, IndexedNumber(index, x[index]))
-                except ValueError:
-                    pass
-
                 try:
                     index = x.index(number)
-                    first_word = min(first_word, IndexedNumber(index, numbers[number]))
+                    first = min(first, IndexedNumber(index, numbers[number]))
                 except ValueError:
                     pass
-            first = first_word.value if first_word < first_numeral else first_numeral.value
+            first = first.value
 
             xreversed = ''.join(reversed(x))
-            last_numeral = IndexedNumber()
-            last_word = IndexedNumber()
+            last = IndexedNumber()
             for number in numbers:
                 try:
-                    index = xreversed.index(str(numbers[number]))
-                    last_numeral = min(last_numeral, IndexedNumber(index, xreversed[index]))
-                except ValueError:
-                    pass
-
-                try:
                     index = xreversed.index(''.join(reversed(number)))
-                    last_word = min(last_word, IndexedNumber(index, numbers[number]))
+                    last = min(last, IndexedNumber(index, numbers[number]))
                 except ValueError:
                     pass
-            last = last_word.value if last_word < last_numeral else last_numeral.value
+            last = last.value
 
             result += int(first + last)
         return result
