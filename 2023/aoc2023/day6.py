@@ -27,6 +27,5 @@ class Day6(AbstractDay):
         left = bisect.bisect(list(range(0, time+1)), distance, key = lambda t: (time - t) * t)
         right = bisect.bisect(list(range(time+1, 0, -1)), distance, key = lambda t: (time - t) * t)
         right = time + 2 - right
-        print(left, right)
         return right - left
 
