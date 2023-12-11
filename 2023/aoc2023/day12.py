@@ -1,6 +1,6 @@
 from boiler import AbstractDay
 
-class Day0(AbstractDay):
+class Day12(AbstractDay):
     def part1(self):
         return None
 
