@@ -4,6 +4,9 @@ from collections import defaultdict
 from functools import cmp_to_key
 
 def correct_ordering(rules, update):
+    # why doesn't this work?
+    # compare = lambda x, y: 1 if y in rules[x] else -1
+    # return update == sorted(update, key=cmp_to_key(compare))
     for i in range(1,len(update)):
         u = update[i]
         if u in rules:
