@@ -47,6 +47,5 @@ class Day8(AbstractDay):
                         times += 1
                         t = c + d * times
 
-        print(signal)
         return np.count_nonzero(signal == '#')
 
