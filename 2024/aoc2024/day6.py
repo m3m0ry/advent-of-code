@@ -120,29 +120,51 @@ class Day6(AbstractDay):
 
     def part2(self):
         grid = np.pad(self.grid, 1, constant_values=('+'))
-        print(grid)
-        i,j = np.argwhere(grid == '^')[0]
-        o = Dir.UP
-        out = False
+        start = grid.copy()
+
+        # Brute force no effort trying everything out
+        points = np.argwhere(grid == '.')
+
         obstacles = 0
-        while not out:
-            k, l, out, obst = loopforward2(i, j, grid, o)
-            obstacles += obst
-            if k == i:
-                grid[i, j:l:1 if j < l else -1] = grid[i, j:l:1 if j < l else -1] + dir_to_string(o)
-                print(grid[i, j:l:1 if j < l else -1] + dir_to_string(o))
-                print(grid[i, j:l:1 if j < l else -1])
-                if l < j:
-                    j = l + 1
+
+        for i, (x,y) in enumerate(points):
+            print(f'{i}/{len(points)}')
+            grid = start.copy()
+            grid[x,y] = '#'
+            o = Dir.UP
+            i,j = np.argwhere(grid == '^')[0]
+            path = set()
+            out = False
+            while not out:
+                k, l, out = loopforward(i, j, grid, o)
+                if k == i:
+                    grid[i, j:l:1 if j < l else -1] = 'X'
+                    for a in range(j, l, 1 if j < l else -1):
+                        s = (i, a, dir_to_string(o))
+                        if s in path:
+                            obstacles += 1
+                            out = True
+                            break
+                        else:
+                            path.add(s)
+                    if l < j:
+                        j = l + 1
+                    else:
+                        j = l - 1
                 else:
-                    j = l -1
-            else:
-                grid[i:k:1 if i< k else -1, j] += dir_to_string(o)
-                if k < i:
-                    i = k + 1
-                else:
-                    i = k -1
-            o = turn(o)
-        print(grid)
+                    grid[i:k:1 if i< k else -1, j] = 'X'
+                    for a in range(i, k, 1 if i < k else -1):
+                        s = (a, j, dir_to_string(o))
+                        if s in path:
+                            obstacles += 1
+                            out = True
+                            break
+                        else:
+                            path.add(s)
+                    if k < i:
+                        i = k + 1
+                    else:
+                        i = k - 1
+                o = turn(o)
         return obstacles
 
